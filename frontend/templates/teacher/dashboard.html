@@ -1,0 +1,507 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Teacher Dashboard - Student Result Portal</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        /* Header */
+
+        .header {
+            background: #4f46e5;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .header p {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: white;
+            color: #4f46e5;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logout-btn:hover {
+            background: #eeeeee;
+        }
+
+        /* Main */
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #666;
+        }
+
+        /* Cards */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h3 {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .card .number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #4f46e5;
+        }
+
+        /* Sections */
+
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Tables */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #f4f6f9;
+        }
+
+        /* Menu */
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .menu a {
+            display: block;
+            padding: 15px;
+            background: #f4f6f9;
+            border-radius: 7px;
+            text-decoration: none;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+
+        .menu a:hover {
+            background: #e8e9ff;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 900px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 15px 20px;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header class="header">
+
+        <div>
+
+            <h1>Student Result Portal</h1>
+
+            <p>Teacher Dashboard</p>
+
+        </div>
+
+        <div>
+
+            <a href="/accounts/logout/"
+               class="logout-btn">
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- Main Container -->
+
+    <main class="container">
+
+        <!-- Welcome -->
+
+        <div class="welcome">
+
+            <h2>
+                Welcome, {{ request.user.username }}!
+            </h2>
+
+            <p>
+                Manage students, classes, subjects, exams and results.
+            </p>
+
+        </div>
+
+
+        <!-- Statistics -->
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>Total Students</h3>
+
+                <div class="number">
+                    {{ total_students }}
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Total Classes</h3>
+
+                <div class="number">
+                    {{ total_classes }}
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Total Subjects</h3>
+
+                <div class="number">
+                    {{ total_subjects }}
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Total Exams</h3>
+
+                <div class="number">
+                    {{ total_exams }}
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Total Results</h3>
+
+                <div class="number">
+                    {{ total_results }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Classes -->
+
+        <div class="section">
+
+            <h2>Classes</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Class</th>
+                        <th>Section</th>
+                        <th>Academic Year</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for class in classes %}
+
+                    <tr>
+
+                        <td>
+                            {{ class.class_name }}
+                        </td>
+
+                        <td>
+                            {{ class.section }}
+                        </td>
+
+                        <td>
+                            {{ class.academic_year }}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="3">
+                            No classes available.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- Subjects -->
+
+        <div class="section">
+
+            <h2>Subjects</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Subject Code</th>
+                        <th>Subject Name</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for subject in subjects %}
+
+                    <tr>
+
+                        <td>
+                            {{ subject.subject_code }}
+                        </td>
+
+                        <td>
+                            {{ subject.subject_name }}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="2">
+                            No subjects available.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- Exams -->
+
+        <div class="section">
+
+            <h2>Exams</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Exam Name</th>
+                        <th>Academic Year</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for exam in exams %}
+
+                    <tr>
+
+                        <td>
+                            {{ exam.exam_name }}
+                        </td>
+
+                        <td>
+                            {{ exam.academic_year }}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="2">
+                            No exams available.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- Teacher Menu -->
+
+        <div class="section">
+
+            <h2>Teacher Operations</h2>
+
+            <div class="menu">
+
+                <a href="#">
+                    View Students
+                </a>
+
+                <a href="#">
+                    View Classes
+                </a>
+
+                <a href="#">
+                    View Subjects
+                </a>
+
+                <a href="#">
+                    View Exams
+                </a>
+
+               <a href="{% url 'add_result' %}">
+                    Add Result
+                </a>
+
+                <a href="{% url 'view_results' %}">
+    Update Result
+</a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
