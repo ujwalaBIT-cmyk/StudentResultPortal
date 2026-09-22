@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Student Dashboard</title>
+
+</head>
+
+<body>
+
+    <h1>Student Result Portal</h1>
+
+    <h2>Student Dashboard</h2>
+
+    <p>
+        Welcome, {{ request.user.username }}!
+    </p>
+
+    <hr>
+
+    <h3>Student Menu</h3>
+
+    <ul>
+        <li>My Profile</li>
+        <li>My Class</li>
+        <li>My Subjects</li>
+        <li>My Results</li>
+        <li>My Exam Performance</li>
+    </ul>
+
+    <form method="post" action="/accounts/logout/">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+</body>
+
+</html>

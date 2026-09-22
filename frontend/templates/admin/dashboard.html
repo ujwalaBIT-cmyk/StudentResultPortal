@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Admin Dashboard</title>
+
+</head>
+
+<body>
+
+    <h1>Student Result Portal</h1>
+
+    <h2>Admin Dashboard</h2>
+
+    <p>
+        Welcome, {{ request.user.username }}!
+    </p>
+
+    <hr>
+
+    <h3>Admin Menu</h3>
+
+    <ul>
+        <li>Manage Students</li>
+        <li>Manage Teachers</li>
+        <li>Manage Classes</li>
+        <li>Manage Subjects</li>
+        <li>Manage Exams</li>
+        <li>Manage Results</li>
+    </ul>
+
+    <p>
+        <a href="/admin/">Open Django Admin</a>
+    </p>
+
+    <form method="post" action="/accounts/logout/">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+</body>
+
+</html>
