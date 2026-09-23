@@ -1,0 +1,12 @@
+STUDENT RESULT PORTAL
+GITHUB REPOSITORY LINK
+======================
+
+GitHub Repository:
+https://github.com/ujwalaBIT-cmyk/StudentResultPortal.git
+
+Repository Name:
+StudentResultPortal
+
+Owner:
+ujwalaBIT-cmyk
