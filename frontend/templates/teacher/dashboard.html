@@ -1,3 +1,4 @@
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -12,7 +13,12 @@
 
     <title>Teacher Dashboard - Student Result Portal</title>
 
+
     <style>
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
 
         * {
             box-sizing: border-box;
@@ -21,174 +27,679 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            color: #333;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
         }
 
-        /* Header */
 
-        .header {
-            background: #4f46e5;
-            color: white;
-            padding: 20px 40px;
+        /* =========================================
+           LAYOUT
+        ========================================= */
+
+        .dashboard {
             display: flex;
-            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, #1e40af, #4338ca);
+            color: white;
+            padding: 25px 18px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 100;
+        }
+
+
+        /* LOGO */
+
+        .logo {
+            display: flex;
             align-items: center;
+            gap: 12px;
+            padding: 10px;
+            margin-bottom: 35px;
         }
 
-        .header h1 {
-            font-size: 24px;
+        .logo-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 13px;
+            background: rgba(255,255,255,0.18);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
         }
 
-        .header p {
-            margin-top: 5px;
+        .logo-text {
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            display: block;
+            font-size: 10px;
+            font-weight: 400;
+            color: #dbeafe;
+            margin-top: 4px;
+        }
+
+
+        /* MENU */
+
+        .menu-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #c7d2fe;
+            margin: 0 10px 12px;
+            letter-spacing: 1px;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin-bottom: 7px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #e0e7ff;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 13px 12px;
+
+            border-radius: 10px;
+
             font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(255,255,255,0.16);
+            color: white;
+        }
+
+        .menu-icon {
+            width: 25px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+
+        /* LOGOUT */
+
+        .logout-area {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
         }
 
         .logout-btn {
-            background: white;
-            color: #4f46e5;
-            padding: 10px 18px;
-            border-radius: 6px;
+            display: block;
+
+            width: 100%;
+
+            text-align: center;
+
             text-decoration: none;
-            font-weight: bold;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            color: white;
+
+            background: rgba(255,255,255,0.10);
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            font-size: 14px;
+
+            transition: 0.3s;
         }
 
         .logout-btn:hover {
-            background: #eeeeee;
+            background: rgba(255,255,255,0.20);
+            transform: translateY(-1px);
         }
 
-        /* Main */
 
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
+        /* =========================================
+           MAIN CONTENT
+        ========================================= */
+
+        .main-content {
+            margin-left: 250px;
+
+            width: calc(100% - 250px);
+
+            padding: 30px;
         }
 
-        .welcome {
+
+        /* =========================================
+           TOP BAR
+        ========================================= */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
             margin-bottom: 25px;
         }
 
-        .welcome h2 {
-            font-size: 26px;
+        .topbar h1 {
+            font-size: 27px;
+            color: #111827;
+        }
+
+        .topbar p {
+            margin-top: 5px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+
+        /* PROFILE */
+
+        .profile {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            background: white;
+
+            padding: 8px 15px 8px 8px;
+
+            border-radius: 30px;
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .profile-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+        }
+
+        .profile-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .profile-role {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+
+        /* =========================================
+           WELCOME BANNER
+        ========================================= */
+
+        .welcome-banner {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+
+            color: white;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            margin-bottom: 25px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            box-shadow: 0 10px 25px rgba(37,99,235,0.20);
+        }
+
+        .welcome-banner::before {
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.07);
+
+            right: -80px;
+            top: -80px;
+        }
+
+        .welcome-banner::after {
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.05);
+
+            right: 150px;
+            bottom: -100px;
+        }
+
+        .welcome-banner h2 {
+            font-size: 25px;
             margin-bottom: 8px;
+
+            position: relative;
+            z-index: 2;
         }
 
-        .welcome p {
-            color: #666;
+        .welcome-banner p {
+            color: #dbeafe;
+
+            position: relative;
+            z-index: 2;
+
+            font-size: 14px;
         }
 
-        /* Cards */
+
+        /* =========================================
+           STATISTICS
+        ========================================= */
 
         .cards {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
             gap: 18px;
-            margin-bottom: 30px;
+
+            margin-bottom: 28px;
         }
 
         .card {
             background: white;
-            padding: 22px;
+
+            padding: 20px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.05);
+
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .card-icon {
+            width: 42px;
+            height: 42px;
+
             border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+            background: #eef2ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 21px;
+
+            margin-bottom: 14px;
         }
 
         .card h3 {
-            font-size: 14px;
-            color: #777;
-            margin-bottom: 10px;
+            font-size: 13px;
+
+            color: #6b7280;
+
+            margin-bottom: 7px;
+
+            font-weight: 500;
         }
 
-        .card .number {
-            font-size: 30px;
-            font-weight: bold;
-            color: #4f46e5;
+        .number {
+            font-size: 27px;
+
+            font-weight: 700;
+
+            color: #1e40af;
         }
 
-        /* Sections */
+
+        /* =========================================
+           SECTION
+        ========================================= */
 
         .section {
             background: white;
+
             padding: 25px;
-            border-radius: 10px;
+
+            border-radius: 15px;
+
             margin-bottom: 25px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.05);
         }
 
-        .section h2 {
+        .section-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
             margin-bottom: 20px;
-            color: #333;
         }
 
-        /* Tables */
+        .section-header h2 {
+            font-size: 19px;
+
+            color: #111827;
+        }
+
+        .section-description {
+            color: #9ca3af;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================
+           TABLE
+        ========================================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
 
         table {
             width: 100%;
+
             border-collapse: collapse;
         }
 
         th,
         td {
-            padding: 12px;
+            padding: 14px;
+
             text-align: left;
-            border-bottom: 1px solid #ddd;
+
+            border-bottom: 1px solid #edf0f4;
+
+            font-size: 13px;
         }
 
         th {
-            background: #f4f6f9;
+            background: #f8fafc;
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
         }
 
-        /* Menu */
+        tbody tr {
+            transition: 0.2s;
+        }
 
-        .menu {
+        tbody tr:hover {
+            background: #f8faff;
+        }
+
+        td {
+            color: #374151;
+        }
+
+
+        /* =========================================
+           EMPTY TABLE
+        ========================================= */
+
+        .empty {
+            text-align: center;
+
+            color: #9ca3af;
+
+            padding: 25px !important;
+        }
+
+
+        /* =========================================
+           OPERATIONS
+        ========================================= */
+
+        .menu-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 15px;
         }
 
-        .menu a {
-            display: block;
-            padding: 15px;
-            background: #f4f6f9;
-            border-radius: 7px;
+        .operation {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 18px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 12px;
+
             text-decoration: none;
-            color: #4f46e5;
-            font-weight: bold;
+
+            color: #374151;
+
+            transition: 0.3s;
         }
 
-        .menu a:hover {
-            background: #e8e9ff;
+        .operation:hover {
+            background: #f5f7ff;
+
+            border-color: #6366f1;
+
+            transform: translateY(-2px);
         }
 
-        /* Responsive */
+        .operation-icon {
+            width: 42px;
+            height: 42px;
 
-        @media (max-width: 900px) {
+            border-radius: 10px;
+
+            background: #eef2ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+        .operation h4 {
+            font-size: 14px;
+
+            color: #1f2937;
+
+            margin-bottom: 3px;
+        }
+
+        .operation p {
+            font-size: 11px;
+
+            color: #9ca3af;
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+            text-align: center;
+
+            margin-top: 30px;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+            padding-bottom: 15px;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 1150px) {
 
             .cards {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(3, 1fr);
             }
 
-            .menu {
-                grid-template-columns: 1fr;
+            .menu-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
         }
 
-        @media (max-width: 600px) {
 
-            .header {
-                padding: 15px 20px;
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 70px;
+
+                padding: 20px 10px;
             }
 
-            .header h1 {
+            .logo-text,
+            .menu-title,
+            .menu a span,
+            .logout-btn span {
+                display: none;
+            }
+
+            .logo {
+                justify-content: center;
+            }
+
+            .menu a {
+                justify-content: center;
+            }
+
+            .logout-area {
+                left: 10px;
+                right: 10px;
+            }
+
+            .logout-btn {
+                font-size: 0;
+            }
+
+            .logout-btn::before {
+                content: "🚪";
                 font-size: 18px;
             }
 
+            .main-content {
+                margin-left: 70px;
+
+                width: calc(100% - 70px);
+
+                padding: 20px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .topbar h1 {
+                font-size: 21px;
+            }
+
+            .profile {
+                display: none;
+            }
+
             .cards {
                 grid-template-columns: 1fr;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-banner {
+                padding: 23px;
+            }
+
+            .welcome-banner h2 {
+                font-size: 21px;
             }
 
         }
@@ -197,58 +708,268 @@
 
 </head>
 
+
 <body>
 
-    <!-- Header -->
 
-    <header class="header">
+<div class="dashboard">
 
-        <div>
 
-            <h1>Student Result Portal</h1>
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
 
-            <p>Teacher Dashboard</p>
+    <aside class="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🎓
+            </div>
+
+            <div class="logo-text">
+
+                Student Portal
+
+                <span>
+                    Result Management System
+                </span>
+
+            </div>
 
         </div>
 
-        <div>
 
-            <a href="/accounts/logout/"
-               class="logout-btn">
-                Logout
+        <!-- MENU -->
+
+        <div class="menu-title">
+            Teacher Menu
+        </div>
+
+
+        <ul class="menu">
+
+
+            <li>
+
+                <a href="#" class="active">
+
+                    <span class="menu-icon">
+                        🏠
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#classes">
+
+                    <span class="menu-icon">
+                        🏫
+                    </span>
+
+                    <span>
+                        Classes
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#subjects">
+
+                    <span class="menu-icon">
+                        📚
+                    </span>
+
+                    <span>
+                        Subjects
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="#exams">
+
+                    <span class="menu-icon">
+                        📝
+                    </span>
+
+                    <span>
+                        Exams
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{% url 'add_result' %}">
+
+                    <span class="menu-icon">
+                        ➕
+                    </span>
+
+                    <span>
+                        Add Result
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="{% url 'view_results' %}">
+
+                    <span class="menu-icon">
+                        📊
+                    </span>
+
+                    <span>
+                        Results
+                    </span>
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+
+        <!-- LOGOUT -->
+
+        <div class="logout-area">
+
+            <a href="/accounts/logout/" class="logout-btn">
+
+                <span>
+                    🚪 Logout
+                </span>
+
             </a>
 
         </div>
 
-    </header>
+
+    </aside>
 
 
-    <!-- Main Container -->
 
-    <main class="container">
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
 
-        <!-- Welcome -->
+    <main class="main-content">
 
-        <div class="welcome">
+
+        <!-- TOP BAR -->
+
+        <div class="topbar">
+
+            <div>
+
+                <h1>
+                    Teacher Dashboard
+                </h1>
+
+                <p>
+                    Manage academic information and student results.
+                </p>
+
+            </div>
+
+
+            <div class="profile">
+
+                <div class="profile-avatar">
+
+                    {{ request.user.username|first|upper }}
+
+                </div>
+
+                <div>
+
+                    <div class="profile-name">
+
+                        {{ request.user.username }}
+
+                    </div>
+
+                    <div class="profile-role">
+
+                        Teacher
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================
+             WELCOME
+        ====================================== -->
+
+        <div class="welcome-banner">
 
             <h2>
-                Welcome, {{ request.user.username }}!
+
+                Welcome, {{ request.user.username }}! 👋
+
             </h2>
 
             <p>
-                Manage students, classes, subjects, exams and results.
+
+                Manage students, classes, subjects, examinations
+                and academic results from your dashboard.
+
             </p>
 
         </div>
 
 
-        <!-- Statistics -->
+
+        <!-- =====================================
+             STATISTICS
+        ====================================== -->
 
         <div class="cards">
 
+
             <div class="card">
 
-                <h3>Total Students</h3>
+                <div class="card-icon">
+                    👨‍🎓
+                </div>
+
+                <h3>
+                    Total Students
+                </h3>
 
                 <div class="number">
                     {{ total_students }}
@@ -259,7 +980,13 @@
 
             <div class="card">
 
-                <h3>Total Classes</h3>
+                <div class="card-icon">
+                    🏫
+                </div>
+
+                <h3>
+                    Total Classes
+                </h3>
 
                 <div class="number">
                     {{ total_classes }}
@@ -270,7 +997,13 @@
 
             <div class="card">
 
-                <h3>Total Subjects</h3>
+                <div class="card-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Total Subjects
+                </h3>
 
                 <div class="number">
                     {{ total_subjects }}
@@ -281,7 +1014,13 @@
 
             <div class="card">
 
-                <h3>Total Exams</h3>
+                <div class="card-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Total Exams
+                </h3>
 
                 <div class="number">
                     {{ total_exams }}
@@ -292,7 +1031,13 @@
 
             <div class="card">
 
-                <h3>Total Results</h3>
+                <div class="card-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Total Results
+                </h3>
 
                 <div class="number">
                     {{ total_results }}
@@ -300,208 +1045,455 @@
 
             </div>
 
-        </div>
-
-
-        <!-- Classes -->
-
-        <div class="section">
-
-            <h2>Classes</h2>
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>Class</th>
-                        <th>Section</th>
-                        <th>Academic Year</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {% for class in classes %}
-
-                    <tr>
-
-                        <td>
-                            {{ class.class_name }}
-                        </td>
-
-                        <td>
-                            {{ class.section }}
-                        </td>
-
-                        <td>
-                            {{ class.academic_year }}
-                        </td>
-
-                    </tr>
-
-                    {% empty %}
-
-                    <tr>
-
-                        <td colspan="3">
-                            No classes available.
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
 
         </div>
 
 
-        <!-- Subjects -->
 
-        <div class="section">
+        <!-- =====================================
+             CLASSES
+        ====================================== -->
 
-            <h2>Subjects</h2>
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>Subject Code</th>
-                        <th>Subject Name</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {% for subject in subjects %}
-
-                    <tr>
-
-                        <td>
-                            {{ subject.subject_code }}
-                        </td>
-
-                        <td>
-                            {{ subject.subject_name }}
-                        </td>
-
-                    </tr>
-
-                    {% empty %}
-
-                    <tr>
-
-                        <td colspan="2">
-                            No subjects available.
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
-        </div>
+        <div class="section" id="classes">
 
 
-        <!-- Exams -->
+            <div class="section-header">
 
-        <div class="section">
+                <div>
 
-            <h2>Exams</h2>
+                    <h2>
+                        🏫 Classes
+                    </h2>
 
-            <table>
+                    <div class="section-description">
+                        Available classes and academic years
+                    </div>
 
-                <thead>
+                </div>
 
-                    <tr>
-                        <th>Exam Name</th>
-                        <th>Academic Year</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {% for exam in exams %}
-
-                    <tr>
-
-                        <td>
-                            {{ exam.exam_name }}
-                        </td>
-
-                        <td>
-                            {{ exam.academic_year }}
-                        </td>
-
-                    </tr>
-
-                    {% empty %}
-
-                    <tr>
-
-                        <td colspan="2">
-                            No exams available.
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
-        </div>
+            </div>
 
 
-        <!-- Teacher Menu -->
+            <div class="table-wrapper">
 
-        <div class="section">
+                <table>
 
-            <h2>Teacher Operations</h2>
+                    <thead>
 
-            <div class="menu">
+                        <tr>
 
-                <a href="#">
-                    View Students
-                </a>
+                            <th>
+                                Class
+                            </th>
 
-                <a href="#">
-                    View Classes
-                </a>
+                            <th>
+                                Section
+                            </th>
 
-                <a href="#">
-                    View Subjects
-                </a>
+                            <th>
+                                Academic Year
+                            </th>
 
-                <a href="#">
-                    View Exams
-                </a>
+                        </tr>
 
-               <a href="{% url 'add_result' %}">
-                    Add Result
-                </a>
+                    </thead>
 
-                <a href="{% url 'view_results' %}">
-    Update Result
-</a>
+
+                    <tbody>
+
+                        {% for class in classes %}
+
+                        <tr>
+
+                            <td>
+                                {{ class.class_name }}
+                            </td>
+
+                            <td>
+                                {{ class.section }}
+                            </td>
+
+                            <td>
+                                {{ class.academic_year }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td colspan="3" class="empty">
+
+                                No classes available.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
 
             </div>
 
         </div>
 
+
+
+        <!-- =====================================
+             SUBJECTS
+        ====================================== -->
+
+        <div class="section" id="subjects">
+
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        📚 Subjects
+                    </h2>
+
+                    <div class="section-description">
+                        Subjects available in the portal
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Subject Code
+                            </th>
+
+                            <th>
+                                Subject Name
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for subject in subjects %}
+
+                        <tr>
+
+                            <td>
+                                {{ subject.subject_code }}
+                            </td>
+
+                            <td>
+                                {{ subject.subject_name }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td colspan="2" class="empty">
+
+                                No subjects available.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================
+             EXAMS
+        ====================================== -->
+
+        <div class="section" id="exams">
+
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        📝 Exams
+                    </h2>
+
+                    <div class="section-description">
+                        Examination information
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Exam Name
+                            </th>
+
+                            <th>
+                                Academic Year
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for exam in exams %}
+
+                        <tr>
+
+                            <td>
+                                {{ exam.exam_name }}
+                            </td>
+
+                            <td>
+                                {{ exam.academic_year }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td colspan="2" class="empty">
+
+                                No exams available.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================
+             TEACHER OPERATIONS
+        ====================================== -->
+
+        <div class="section">
+
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        ⚡ Teacher Operations
+                    </h2>
+
+                    <div class="section-description">
+                        Quickly access common teacher functions
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-grid">
+
+
+                <a href="#" class="operation">
+
+                    <div class="operation-icon">
+                        👨‍🎓
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            View Students
+                        </h4>
+
+                        <p>
+                            View student information
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+                <a href="#classes" class="operation">
+
+                    <div class="operation-icon">
+                        🏫
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            View Classes
+                        </h4>
+
+                        <p>
+                            View class information
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+                <a href="#subjects" class="operation">
+
+                    <div class="operation-icon">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            View Subjects
+                        </h4>
+
+                        <p>
+                            View available subjects
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+                <a href="#exams" class="operation">
+
+                    <div class="operation-icon">
+                        📝
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            View Exams
+                        </h4>
+
+                        <p>
+                            View examinations
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+                <a href="{% url 'add_result' %}" class="operation">
+
+                    <div class="operation-icon">
+                        ➕
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            Add Result
+                        </h4>
+
+                        <p>
+                            Enter student marks
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+                <a href="{% url 'view_results' %}" class="operation">
+
+                    <div class="operation-icon">
+                        📊
+                    </div>
+
+                    <div>
+
+                        <h4>
+                            View / Update Results
+                        </h4>
+
+                        <p>
+                            Manage student results
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            Student Result Portal
+            <br>
+
+            Teacher Dashboard • Academic Management System
+            <br>
+
+            © 2026 All Rights Reserved
+
+        </div>
+
+
     </main>
+
+
+</div>
+
 
 </body>
 
 </html>
+
