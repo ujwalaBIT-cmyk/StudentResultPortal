@@ -106,13 +106,16 @@ def teacher_dashboard(request):
 @login_required
 def student_dashboard(request):
 
+    # Allow only Student users
     if not request.user.groups.filter(name='Student').exists():
         return redirect('login')
 
+    # Find the Student profile linked to the logged-in user
     student = Student.objects.filter(
         user=request.user
     ).first()
 
+    # If no Student profile exists
     if not student:
         return render(
             request,
@@ -122,23 +125,30 @@ def student_dashboard(request):
             }
         )
 
+    # Get ONLY this student's results
     results = Result.objects.filter(
         student=student
     ).select_related(
         'subject',
         'exam'
+    ).order_by(
+        '-exam__academic_year',
+        'subject__subject_name'
     )
 
+    # Calculate total marks
     total_marks = sum(
         float(result.marks)
         for result in results
     )
 
+    # Calculate maximum possible marks
     total_max_marks = sum(
         float(result.max_marks)
         for result in results
     )
 
+    # Calculate percentage
     percentage = 0
 
     if total_max_marks > 0:
@@ -147,12 +157,40 @@ def student_dashboard(request):
             2
         )
 
+    # Count unique subjects
+    subject_count = results.values(
+        'subject'
+    ).distinct().count()
+
+    # Count unique examinations
+    exam_count = results.values(
+        'exam'
+    ).distinct().count()
+
+    # Count result records
+    result_count = results.count()
+
+    # Determine overall performance
+    if result_count == 0:
+        performance = 'Result Pending'
+    elif percentage >= 40:
+        performance = 'Pass'
+    else:
+        performance = 'Needs Improvement'
+
     context = {
         'student': student,
         'results': results,
+
         'total_marks': total_marks,
         'total_max_marks': total_max_marks,
         'percentage': percentage,
+
+        'subject_count': subject_count,
+        'exam_count': exam_count,
+        'result_count': result_count,
+
+        'performance': performance,
     }
 
     return render(
